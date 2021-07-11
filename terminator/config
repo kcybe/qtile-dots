@@ -1,0 +1,28 @@
+[global_config]
+  handle_size = 1
+  borderless = True
+  title_transmit_bg_color = "#0489ec"
+  title_inactive_bg_color = "#c405f8"
+  inactive_color_offset = 0.8078602620087336
+[keybindings]
+[profiles]
+  [[default]]
+    icon_bell = False
+    background_darkness = 0.55
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    font = Monospace 16
+    show_titlebar = False
+    scrollbar_position = hidden
+    palette = "#000000:#cd0000:#00cd00:#cdcd00:#0000ee:#cd00cd:#00cdcd:#e5e5e5:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+[plugins]
