@@ -146,6 +146,7 @@ screens = [
                     padding = 8
                     ),
                 widget.TextBox(
+                    font = "Font Awesome 5 Free",
                     foreground = COLORS[2],
                     text = " "
                     ),
@@ -163,17 +164,23 @@ screens = [
                     padding = 25
                     ),
                 widget.TextBox(
+                    font = "Font Awesome 5 Free",
                     foreground = COLORS[6],
                     text = " "
                     ),
                 widget.Volume(
-                    foreground = COLORS[0]
+                    foreground = COLORS[0],
+                    get_volume_command = "amixer -D pulse get Master".split(),
+                    volume_up_command = "amixer -q -D pulse sset Master 5%+",
+                    volume_down_command = "amixer -q -D pulse sset Master 5%-",
+                    mute_command = "amixer -D pulse set Master 1+ toggle"
                     ),
                 widget.Sep(
                     linewidth = 0,
                     padding = 8
                     ),
                 widget.TextBox(
+                    font = "Font Awesome 5 Free",
                     foreground = COLORS[2],
                     text = " "
                     ),
@@ -186,6 +193,7 @@ screens = [
                     padding = 8
                     ),
                 widget.TextBox(
+                    font = "Font Awesome 5 Free",
                     foreground = COLORS[6],
                     text = " "
                     ),
@@ -197,6 +205,7 @@ screens = [
                     padding = 8
                     ),
                 widget.TextBox(
+                    font = "Font Awesome 5 Free",
                     foreground = COLORS[2],
                     text = " "
                     ),
