@@ -1,4 +1,3 @@
-<h1 align='center'>Qtile Dots</h1>
-<h2>Screenshot</h2>
-![Screenshot from 2021-07-12 14-58-03](https://user-images.githubusercontent.com/75665158/125284217-dca29300-e321-11eb-8f29-53cb32057f01.png)
-
+# Qtile Dots
+## Screenshot
+![Screenshot from 2021-07-12 15-08-02](https://user-images.githubusercontent.com/75665158/125285140-0314fe00-e323-11eb-8f6e-b673529128a5.png)
