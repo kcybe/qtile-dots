@@ -58,13 +58,21 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
 
     # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    # Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
+
+    ## Programs ##
+    Key([mod, "shift"], "Print", lazy.spawn('gnome-screenshot -i')), # Opens screenshot tool
+    Key([mod], "f", lazy.spawn('nautilus')), # Opens file manager
+    Key([mod], "i", lazy.spawn('firefox')), # Opens browser
+
+    ## Shortcuts ##
+    Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."), # Change keyboard layout
 ]
 
 ## Colors ##
@@ -83,7 +91,7 @@ for i in groups:
     keys.extend([
         # mod1 + letter of group = switch to group
         Key([mod], i.name, lazy.group[i.name].toscreen(),
-            desc="Switch to group {}".format(i.name)),
+             desc="Switch to group {}".format(i.name)),
 
         # mod1 + shift + letter of group = switch to & move focused window to group
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
@@ -158,6 +166,26 @@ screens = [
                     scroll_chars=None,
                     stop_pause_text='',
                     foreground = COLORS[0]
+                    ),
+                widget.Sep(
+                    foreground = COLORS[0],
+                    linewidth = 2,
+                    padding = 25
+                    ),
+                widget.WidgetBox(
+                    font = "Font Awesome 5 Free",
+                    widgets=[
+                                widget.Systray()            
+                    ],
+                    text_closed = "",
+                    text_open = ""
+                    ),
+                widget.Sep(
+                    linewidth = 0,
+                    padding = 5
+                    ),
+                widget.KeyboardLayout(
+                    configured_keyboards = ['us', 'il']
                     ),
                 widget.Sep(
                     foreground = COLORS[0],
