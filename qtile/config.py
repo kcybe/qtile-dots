@@ -40,13 +40,13 @@ keys = [
 
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(),
+    Key([mod, "control"], "j", lazy.layout.grow_left(),
         desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(),
         desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(),
+    Key([mod, "control"], "k", lazy.layout.grow_down(),
         desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod, "control"], "i", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
     # Toggle between split and unsplit sides of stack.
@@ -63,7 +63,7 @@ keys = [
 
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(),
+    Key([mod], "slash", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
 
     ## Programs ##
@@ -85,22 +85,50 @@ COLORS = ["fffcf9", # White Color
           "4cc9f0",
           ]
 
-groups = [Group(i) for i in "123456789"]
+#groups = [Group(i) for i in "123456789"]
 
-for i in groups:
+#for i in groups:
+#    keys.extend([
+#        # mod1 + letter of group = switch to group
+#        Key([mod], i.name, lazy.group[i.name].toscreen(),
+#             desc="Switch to group {}".format(i.name)),
+#
+#        # mod1 + shift + letter of group = switch to & move focused window to group
+#        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+#            desc="Switch to & move focused window to group {}".format(i.name)),
+#        # Or, use below if you prefer not to switch to that group.
+#        # # mod1 + shift + letter of group = move focused window to group
+#        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+#        #     desc="move focused window to group {}".format(i.name)),
+#    ])
+
+groups = []
+
+workspaces = [
+        {"name": "١", "key": "1", "matches": [], "lay": "bsp"},
+        {"name": "٢", "key": "2", "matches": [], "lay": "bsp"},
+        {"name": "٣", "key": "3", "matches": [], "lay": "bsp"},
+        {"name": "٤", "key": "4", "matches": [], "lay": "bsp"},
+        {"name": "٥", "key": "5", "matches": [], "lay": "bsp"},
+        {"name": "٦", "key": "6", "matches": [], "lay": "bsp"},
+        {"name": "٧", "key": "7", "matches": [], "lay": "bsp"},
+        {"name": "٨", "key": "8", "matches": [], "lay": "bsp"},
+        {"name": "٩", "key": "9", "matches": [], "lay": "bsp"},
+        {"name": "١٠", "key": "0", "matches": [], "lay": "bsp"},
+]
+
+for workspace in workspaces:
+    matches = workspace["matches"] if "matches" in workspace else None
+    groups.append(Group(workspace["name"], matches=matches, layout = workspace["lay"]))
     keys.extend([
         # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen(),
-             desc="Switch to group {}".format(i.name)),
+        Key([mod], workspace["key"], lazy.group[workspace["name"]].toscreen(),
+             desc="Switch to group {}".format(workspace["name"])),
 
         # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
-    ])
+        Key([mod, "shift"], workspace["key"], lazy.window.togroup(workspace["name"], switch_group=True),
+            desc="Switch to & move focused window to group {}".format(workspace["name"])),
+])
 
 layouts = [
     layout.Bsp(
@@ -133,12 +161,14 @@ screens = [
                     inactive = COLORS[2],
                     margin_y = None,
                     margin_x = None,
-                    padding_y = 5,
+                    padding_y = 2,
                     padding_x = 5,
                     borderwidth = 2,
-                    highlight_method = "border"
+                    invert_mouse_wheel = True,
+                    this_current_screen_border = COLORS[0],
+                    highlight_method = "text"
                     ),
-                widget.Prompt(),
+                widget.Prompt(foreground = COLORS[6]),
                 widget.Chord(
                     chords_colors={
                         'launch': ("#ff0000", "#ffffff"),
@@ -175,7 +205,7 @@ screens = [
                 widget.WidgetBox(
                     font = "Font Awesome 5 Free",
                     widgets=[
-                                widget.Systray()            
+                                widget.Systray()
                     ],
                     text_closed = "",
                     text_open = ""
