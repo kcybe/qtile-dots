@@ -1,7 +1,7 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
@@ -70,6 +70,12 @@ keys = [
     Key([mod, "shift"], "Print", lazy.spawn('gnome-screenshot -i')), # Opens screenshot tool
     Key([mod], "f", lazy.spawn('nautilus')), # Opens file manager
     Key([mod], "i", lazy.spawn('firefox')), # Opens browser
+    
+    ## Audio ##
+    KeyChord([mod], "a", [
+            Key([], "o", lazy.spawn("pacmd set-default-sink alsa_output.usb-Solid_State_System_Co._Ltd._USB_PnP_Audio_Device_000000000000-00.analog-stereo")), # Headphones
+            Key([], "p", lazy.spawn("pacmd set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo")), # Speakers
+    ]),
 
     ## Shortcuts ##
     Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."), # Change keyboard layout
