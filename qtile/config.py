@@ -72,9 +72,17 @@ keys = [
     Key([mod], "i", lazy.spawn('firefox')), # Opens browser
     
     ## Audio ##
+    #  Using pacmd to change output device (audio)
     KeyChord([mod], "a", [
             Key([], "o", lazy.spawn("pacmd set-default-sink alsa_output.usb-Solid_State_System_Co._Ltd._USB_PnP_Audio_Device_000000000000-00.analog-stereo")), # Headphones
             Key([], "p", lazy.spawn("pacmd set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo")), # Speakers
+    ]),
+
+    ## Power ##
+    KeyChord([mod], "p", [
+            Key([], "l", lazy.spawn("kill -9 -1")), # Logout
+            Key([], "s", lazy.spawn("shutdown -h 0")), # Shutdown
+            Key([], "r", lazy.spawn("shutdown -r 0")), # Restart
     ]),
 
     ## Shortcuts ##
