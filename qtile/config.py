@@ -49,6 +49,10 @@ keys = [
     Key([mod, "control"], "i", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
+    ## Xmonad Windows Growing ##
+    Key([mod, "control"], "i", lazy.layout.grow()),
+    Key([mod, "control"], "k", lazy.layout.shrink()),
+
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
@@ -67,10 +71,12 @@ keys = [
         desc="Spawn a command using a prompt widget"),
 
     ## Programs ##
-    Key([mod, "shift"], "Print", lazy.spawn('gnome-screenshot -i')), # Opens screenshot tool
-    Key([mod], "f", lazy.spawn('nautilus')), # Opens file manager
-    Key([mod], "i", lazy.spawn('firefox')), # Opens browser
-    
+    KeyChord([mod], "z", [
+            Key([], "f", lazy.spawn('nautilus')), # Opens file manager
+            Key([], "r", lazy.spawn(terminal + ' -e ranger')), # Opens Ranger
+            Key([], "i", lazy.spawn('firefox')), # Opens browser
+    ]),
+
     ## Audio ##
     #  Using pacmd to change output device (audio)
     KeyChord([mod], "a", [
@@ -80,13 +86,20 @@ keys = [
 
     ## Power ##
     KeyChord([mod], "p", [
-            Key([], "l", lazy.spawn("kill -9 -1")), # Logout
+            Key([], "l", lazy.spawn(terminal + " -e kill -9 -1")), # Logout
             Key([], "s", lazy.spawn("shutdown -h 0")), # Shutdown
             Key([], "r", lazy.spawn("shutdown -r 0")), # Restart
     ]),
 
+    ## Night Light ##
+    KeyChord([mod], "n", [
+            Key([], "1", lazy.spawn("redshift -O 3700")), # Turn On
+            Key([], "0", lazy.spawn("redshift -x")), # Turn Off
+    ]),
+
     ## Shortcuts ##
     Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."), # Change keyboard layout
+    Key([mod, "shift"], "Print", lazy.spawn('gnome-screenshot -i')), # Opens screenshot tool
 ]
 
 ## Colors ##
@@ -119,16 +132,16 @@ COLORS = ["fffcf9", # White Color
 groups = []
 
 workspaces = [
-        {"name": "١", "key": "1", "matches": [], "lay": "bsp"},
-        {"name": "٢", "key": "2", "matches": [], "lay": "bsp"},
-        {"name": "٣", "key": "3", "matches": [], "lay": "bsp"},
-        {"name": "٤", "key": "4", "matches": [], "lay": "bsp"},
-        {"name": "٥", "key": "5", "matches": [], "lay": "bsp"},
-        {"name": "٦", "key": "6", "matches": [], "lay": "bsp"},
-        {"name": "٧", "key": "7", "matches": [], "lay": "bsp"},
-        {"name": "٨", "key": "8", "matches": [], "lay": "bsp"},
-        {"name": "٩", "key": "9", "matches": [], "lay": "bsp"},
-        {"name": "١٠", "key": "0", "matches": [], "lay": "bsp"},
+        {"name": "١", "key": "1", "matches": [], "lay": "monadtall"},
+        {"name": "٢", "key": "2", "matches": [], "lay": "monadtall"},
+        {"name": "٣", "key": "3", "matches": [], "lay": "monadtall"},
+        {"name": "٤", "key": "4", "matches": [], "lay": "monadtall"},
+        {"name": "٥", "key": "5", "matches": [], "lay": "monadtall"},
+        {"name": "٦", "key": "6", "matches": [], "lay": "monadtall"},
+        {"name": "٧", "key": "7", "matches": [], "lay": "monadtall"},
+        {"name": "٨", "key": "8", "matches": [], "lay": "monadtall"},
+        {"name": "٩", "key": "9", "matches": [], "lay": "monadtall"},
+        {"name": "١٠", "key": "0", "matches": [], "lay": "monadtall"},
 ]
 
 for workspace in workspaces:
@@ -145,12 +158,19 @@ for workspace in workspaces:
 ])
 
 layouts = [
+    layout.MonadTall(
+        border_focus = COLORS[6],
+        border_normal = COLORS[2],
+        border_width = 2,
+        margin = 25,
+        ),
     layout.Bsp(
-	border_focus = COLORS[6],
+    	border_focus = COLORS[6],
         border_normal = COLORS[2],
         border_width = 2,
         margin = 25
-	),
+    	),
+
 ]
 
 widget_defaults = dict(

@@ -13,4 +13,4 @@ picom -b --experimental-backends & # Starting Picom
 xinput set-prop "Logitech Gaming Mouse G502" "Coordinate Transformation Matrix" 2.000000, 0.000000, 0.000000, 0.000000, 2.000000, 0.000000, 0.000000, 0.000000, 1.000000 & # Sensitivity
 
 # Cursor Settings
-xsetroot -cursor_name Bibata-Original-Classic # <--- (Name Of The Cursor Theme)
+xsetroot -cursor_name Bibata-Original-Classic  # <--- (Name Of The Cursor Theme)
